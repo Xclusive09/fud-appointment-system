@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>All Appointments - Staff Portal</title>
+  <link href="../../shared/css/base-styles.css" rel="stylesheet">
+  <link href="../css/staff-styles.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-green-50 to-green-100 min-h-screen flex flex-col md:flex-row">
+<!-- Staff Mobile Navigation -->
+<nav class="md:hidden bg-white/95 border-b border-green-100 shadow-lg px-4 py-3 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <img src="https://img.icons8.com/ios-filled/32/4ade80/hospital-room.png" alt="Logo" class="w-8 h-8" />
+    <span class="text-lg font-bold text-green-700">Staff Portal</span>
+  </div>
+  <button id="mobileMenuBtn" class="text-green-700 focus:outline-none">
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- Staff Mobile Menu -->
+<div id="mobileMenu" class="md:hidden fixed top-0 left-0 w-full h-full bg-black/40 z-40 hidden">
+  <div class="bg-white w-11/12 max-w-xs h-full shadow-lg p-6 flex flex-col">
+    <div class="flex items-center gap-2 mb-8">
+      <img src="https://img.icons8.com/ios-filled/32/4ade80/hospital-room.png" alt="Logo" class="w-8 h-8" />
+      <span class="text-lg font-bold text-green-700">Staff Portal</span>
+    </div>
+    <ul class="space-y-2 flex-1">
+      <li><a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 rounded-lg">Dashboard</a></li>
+      <li><a href="appointments.html" class="block px-4 py-2 text-green-700 bg-green-50 rounded-lg font-medium">All Appointments</a></li>
+    </ul>
+    <button data-action="logout" class="block text-green-600 hover:underline font-medium mt-8">Logout</button>
+    <button id="closeMobileMenu" class="mt-8 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+  </div>
+</div>
+
+<!-- Staff Desktop Sidebar -->
+<aside class="hidden md:flex w-64 bg-white/95 border-r border-green-100 shadow-lg flex-col py-8 px-4 min-h-screen">
+  <div class="flex items-center gap-3 mb-10 px-2">
+    <img src="https://img.icons8.com/ios-filled/32/4ade80/hospital-room.png" alt="Logo" class="w-8 h-8" />
+    <span class="text-xl font-bold text-green-700">Staff Portal</span>
+  </div>
+  <nav>
+    <ul class="space-y-2">
+      <li><a href="dashboard.html" class="block px-4 py-2 text-gray-700 hover:bg-green-50 rounded-lg">Dashboard</a></li>
+      <li><a href="appointments.html" class="block px-4 py-2 text-green-700 bg-green-50 rounded-lg font-medium">All Appointments</a></li>
+    </ul>
+  </nav>
+  <div class="mt-auto px-2">
+    <button data-action="logout" class="block text-green-600 hover:underline font-medium mt-8">Logout</button>
+  </div>
+</aside>
+
+<!-- Staff Main Content -->
+<main class="flex-1 px-2 md:px-8 py-8">
+  <div class="mb-6">
+    <h1 class="text-2xl font-bold text-green-800 mb-2">All Appointments</h1>
+    <p class="text-gray-600">View and manage all past, present, and future appointments</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="bg-white/90 rounded-lg shadow border border-green-100 p-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label for="dateFilter" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+        <input
+                type="date"
+                id="dateFilter"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        />
+      </div>
+      <div>
+        <label for="statusFilter" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+        <select
+                id="statusFilter"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        >
+          <option value="">All Status</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div>
+        <label for="searchFilter" class="block text-sm font-medium text-gray-700 mb-1">Search Student</label>
+        <input
+                type="text"
+                id="searchFilter"
+                placeholder="Search by name or email..."
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-green-500 focus:border-green-500"
+        />
+      </div>
+      <div class="flex items-end">
+        <button
+                id="clearFilters"
+                class="w-full px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded-md transition-colors"
+        >
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Appointments Table -->
+  <div class="bg-white/90 rounded-xl shadow-lg border border-green-100 overflow-hidden">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold text-green-700">Appointments List</h2>
+        <div class="text-sm text-gray-500">
+          Showing <span id="showingStart">0</span>-<span id="showingEnd">0</span> of <span id="totalAppointments">0</span> appointments
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+          <tr class="bg-green-50 border-b border-green-100">
+            <th class="text-left py-3 px-4 font-semibold text-green-700">Date</th>
+            <th class="text-left py-3 px-4 font-semibold text-green-700">Time</th>
+            <th class="text-left py-3 px-4 font-semibold text-green-700">Student Name</th>
+            <th class="text-left py-3 px-4 font-semibold text-green-700 hidden md:table-cell">Email</th>
+            <th class="text-left py-3 px-4 font-semibold text-green-700 hidden lg:table-cell">Reason</th>
+            <th class="text-left py-3 px-4 font-semibold text-green-700">Status</th>
+            <th class="text-left py-3 px-4 font-semibold text-green-700">Actions</th>
+          </tr>
+          </thead>
+          <tbody id="appointmentsTableBody">
+          <!-- Table rows will be populated here -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="text-center py-12 hidden">
+        <svg class="w-16 h-16 mx-auto mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <p class="text-lg text-gray-500">No appointments found</p>
+        <p class="text-sm text-gray-400 mt-2">Try adjusting your filters</p>
+      </div>
+
+      <!-- Pagination -->
+      <div id="paginationContainer" class="mt-6 flex items-center justify-between">
+        <button
+                id="prevPageBtn"
+                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                disabled
+        >
+          Previous
+        </button>
+
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-gray-600">Page</span>
+          <span id="currentPage" class="font-semibold text-green-700">1</span>
+          <span class="text-sm text-gray-600">of</span>
+          <span id="totalPages" class="font-semibold text-green-700">1</span>
+        </div>
+
+        <button
+                id="nextPageBtn"
+                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                disabled
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Action Modal -->
+<div id="actionModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+  <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+    <h3 class="text-lg font-semibold mb-4" id="modalTitle">Appointment Actions</h3>
+    <div class="mb-6">
+      <p class="text-gray-600 mb-2" id="modalMessage"></p>
+      <div class="text-sm text-gray-500" id="modalDetails"></div>
+    </div>
+
+    <div class="flex gap-3">
+      <button id="completeBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors">
+        Mark Complete
+      </button>
+      <button id="cancelBtn" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-colors">
+        Cancel Appointment
+      </button>
+      <button id="closeModalBtn" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-lg transition-colors">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="../../shared/js/mockData.js"></script>
+<script src="../../shared/js/utils.js"></script>
+<script src="../js/appointments.js"></script>
+</body>
+</html>

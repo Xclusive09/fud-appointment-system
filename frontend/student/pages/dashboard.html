@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Student Dashboard</title>
+  <link href="../../shared/css/base-styles.css" rel="stylesheet">
+  <link href="../css/student-styles.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex flex-col md:flex-row">
+<!-- Student Mobile Navigation -->
+<nav class="md:hidden bg-white/95 border-b border-blue-100 shadow-lg px-4 py-3 flex items-center justify-between">
+  <div class="flex items-center gap-2">
+    <img src="https://img.icons8.com/ios-filled/32/4e8cff/hospital-room.png" alt="Logo" class="w-8 h-8" />
+    <span class="text-lg font-bold text-blue-700">Student Portal</span>
+  </div>
+  <button id="mobileMenuBtn" class="text-blue-700 focus:outline-none">
+    <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+  </button>
+</nav>
+
+<!-- Student Mobile Menu -->
+<div id="mobileMenu" class="md:hidden fixed top-0 left-0 w-full h-full bg-black/40 z-40 hidden">
+  <div class="bg-white w-11/12 max-w-xs h-full shadow-lg p-6 flex flex-col">
+    <div class="flex items-center gap-2 mb-8">
+      <img src="https://img.icons8.com/ios-filled/32/4e8cff/hospital-room.png" alt="Logo" class="w-8 h-8" />
+      <span class="text-lg font-bold text-blue-700">Student Portal</span>
+    </div>
+    <ul class="space-y-2 flex-1">
+      <li><a href="dashboard.html" class="block px-4 py-2 text-blue-700 bg-blue-50 rounded-lg font-medium">Dashboard</a></li>
+      <li><a href="appointment.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg">Book Appointment</a></li>
+      <li><a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg">Profile</a></li>
+    </ul>
+    <a href="login.html" class="block text-blue-600 hover:underline font-medium mt-8">Logout</a>
+    <button id="closeMobileMenu" class="mt-8 text-gray-400 hover:text-gray-700 text-2xl">&times;</button>
+  </div>
+</div>
+
+<!-- Student Desktop Sidebar -->
+<aside class="hidden md:flex w-64 bg-white/95 border-r border-blue-100 shadow-lg flex-col py-8 px-4 min-h-screen">
+  <div class="flex items-center gap-3 mb-10 px-2">
+    <img src="https://img.icons8.com/ios-filled/32/4e8cff/hospital-room.png" alt="Logo" class="w-8 h-8" />
+    <span class="text-xl font-bold text-blue-700">Student Portal</span>
+  </div>
+  <nav>
+    <ul class="space-y-2">
+      <li><a href="dashboard.html" class="block px-4 py-2 text-blue-700 bg-blue-50 rounded-lg font-medium">Dashboard</a></li>
+      <li><a href="appointment.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg">Book Appointment</a></li>
+      <li><a href="profile.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-lg">Profile</a></li>
+    </ul>
+  </nav>
+  <div class="mt-auto px-2">
+    <a href="login.html" class="block text-blue-600 hover:underline font-medium mt-8">Logout</a>
+  </div>
+</aside>
+
+<!-- Student Main Content -->
+<main class="flex-1 px-2 md:px-8 py-8">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-2xl font-bold mb-6 text-blue-800 text-center md:text-left">My Appointments</h1>
+
+    <!-- Book Appointment Button -->
+    <div class="mb-6">
+      <a href="appointment.html" id="bookAppointmentBtn" class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold shadow transition-colors">
+        Book New Appointment
+      </a>
+    </div>
+
+    <!-- Appointments List -->
+    <div id="appointmentsList" class="space-y-5">
+      <!-- Appointments will be loaded here -->
+    </div>
+  </div>
+</main>
+
+<script src="../../shared/js/mockData.js"></script>
+<script src="../../shared/js/utils.js"></script>
+<script src="../js/dashboard.js"></script>
+</body>
+</html>

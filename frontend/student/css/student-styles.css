@@ -1,0 +1,68 @@
+/* Student-specific styles */
+.student-primary {
+    color: #1d4ed8;
+}
+
+.student-primary-bg {
+    background-color: #1d4ed8;
+}
+
+.student-secondary {
+    color: #3b82f6;
+}
+
+.student-secondary-bg {
+    background-color: #3b82f6;
+}
+
+.student-accent {
+    color: #60a5fa;
+}
+
+.student-accent-bg {
+    background-color: #60a5fa;
+}
+
+/* Custom scrollbar for student portal */
+.student-portal::-webkit-scrollbar {
+    width: 8px;
+}
+
+.student-portal::-webkit-scrollbar-track {
+    background: #dbeafe;
+}
+
+.student-portal::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 4px;
+}
+
+.student-portal::-webkit-scrollbar-thumb:hover {
+    background: #1d4ed8;
+}
+
+/* Student-specific animations */
+.student-fade-in {
+    animation: studentFadeIn 0.5s ease-in-out;
+}
+
+@keyframes studentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Student card hover effects */
+.student-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -3px rgba(59, 130, 246, 0.1);
+}
+
+.student-card {
+    transition: all 0.3s ease;
+}

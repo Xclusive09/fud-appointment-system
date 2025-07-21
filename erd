@@ -1,0 +1,12 @@
++------------+       +----------------+
+|   User     |       |  Appointment   |
++------------+       +----------------+
+| id         |◄────┐ | id             |
+| name       |     └─| user_id (FK)   |
+| email      |       | date           |
+| password   |       | time           |
+| role       |       | status         |
+| phone      |       | notes          |
++------------+       +----------------+
+
+- role = 'patient' | 'staff' | 'admin'
