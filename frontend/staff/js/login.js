@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const mockStaff = [
             { email: 'admin@clinic.com', password: 'admin123', name: 'Dr. Smith' },
             { email: 'staff@clinic.com', password: 'staff123', name: 'Nurse Johnson' },
-            { email: 'doctor@clinic.com', password: 'doctor123', name: 'Dr. Brown' }
+            { email: 'doctor@clinic.com', password: 'doctor123', name: 'Dr. Brown' },
         ];
 
         const staff = mockStaff.find(s => s.email === email && s.password === password);
