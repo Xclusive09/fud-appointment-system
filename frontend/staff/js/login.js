@@ -79,14 +79,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function authenticateStaff(email, password, rememberMe) {
-        // Mock authentication - simplified to just one staff role
-        const mockStaff = [
-            { email: 'admin@clinic.com', password: 'admin123', name: 'Dr. Smith' },
-            { email: 'staff@clinic.com', password: 'staff123', name: 'Nurse Johnson' },
-            { email: 'doctor@clinic.com', password: 'doctor123', name: 'Dr. Brown' },
-        ];
+        try {
+            // Mock authentication - simplified to just one staff role
+            const mockStaff = [
+                { email: 'admin@clinic.com', password: 'admin123', name: 'Dr. Smith' },
+                { email: 'staff@clinic.com', password: 'staff123', name: 'Nurse Johnson' },
+                { email: 'doctor@clinic.com', password: 'doctor123', name: 'Dr. Brown' },
+                { email: 'nurse@clinic.com', password: 'nurse123', name: 'Nurse Williams' },
+                { email: 'receptionist@clinic.com', password: 'recept123', name: 'Jane Reception' },
+                { email: 'class@clinic.com', password: 'class123', name: 'Jane peace' }
+            ];
 
-        const staff = mockStaff.find(s => s.email === email && s.password === password);
+            console.log('Attempting staff login for:', email); // Debug log
+            const staff = mockStaff.find(s => s.email.toLowerCase() === email.toLowerCase() && s.password === password);
 
         if (staff) {
             // Success
@@ -113,7 +118,12 @@ document.addEventListener('DOMContentLoaded', function() {
             showAlert('Invalid email or password', 'error');
             setLoadingState(false);
         }
+    } catch (error) {
+        console.error('Authentication error:', error);
+        showAlert('An error occurred during login', 'error');
+        setLoadingState(false);
     }
+}
 
     function generateAuthToken() {
         return 'staff_' + Math.random().toString(36).substr(2, 9);

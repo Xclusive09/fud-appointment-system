@@ -8,7 +8,7 @@ let globalAppointments = [
         studentName: "Alex Johnson",
         email: "alex.johnson@university.edu",
         phone: "+1234567801",
-        date: "2025-09-08",
+        date: "2025-10-08",
         time: "09:00",
         status: "Completed",
         reason: "General checkup",

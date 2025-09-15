@@ -79,15 +79,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function authenticateStudent(email, password, rememberMe) {
-        // Mock authentication - in real app, this would be an API call
-        const mockStudents = [
-            { email: 'student@university.edu', password: 'password123', name: 'John Doe' },
-            { email: 'jane.smith@university.edu', password: 'password123', name: 'Jane Smith' }
-        ];
+        try {
+            // Mock authentication - in real app, this would be an API call
+            const mockStudents = [
+                { email: 'student@university.edu', password: 'password123', name: 'John Doe' },
+                { email: 'jane.smith@university.edu', password: 'password123', name: 'Jane Smith' },
+                { email: 'test@university.edu', password: 'password123', name: 'Test Student' },
+                { email: 'student2@university.edu', password: 'password123', name: 'Another Student' }
+            ];
 
-        const student = mockStudents.find(s => s.email === email && s.password === password);
-
-        if (student) {
+            console.log('Attempting login for:', email); // Debug log
+            const student = mockStudents.find(s => s.email.toLowerCase() === email.toLowerCase() && s.password === password);
+            
+            if (student) {
             // Success
             const token = generateAuthToken();
 
@@ -112,7 +116,12 @@ document.addEventListener('DOMContentLoaded', function() {
             showAlert('Invalid email or password', 'error');
             setLoadingState(false);
         }
+    } catch (error) {
+        console.error('Authentication error:', error);
+        showAlert('An error occurred during login', 'error');
+        setLoadingState(false);
     }
+}
 
     function generateAuthToken() {
         return 'student_' + Math.random().toString(36).substr(2, 9);
