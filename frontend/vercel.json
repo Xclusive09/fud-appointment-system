@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "frontend/**/*.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/staff/(.*)",
+      "dest": "/frontend/staff/pages/$1"
+    },
+    {
+      "src": "/students/(.*)", 
+      "dest": "/frontend/students/pages/$1"
+    }
+  ]
+}
