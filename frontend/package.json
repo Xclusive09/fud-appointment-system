@@ -1,14 +1,11 @@
 {
-  "name": "frontend",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "fud-appointment-system",
+  "version": "1.0.0", 
   "scripts": {
-    "build:css": "npx tailwindcss -i ./frontend/css/input.css -o ./frontend/css/styles.css --watch"
+    "build:staff": "npx tailwindcss -i ./staff/css/input.css -o ./staff/css/styles.css --minify",
+    "build:students": "npx tailwindcss -i ./students/css/input.css -o ./students/css/styles.css --minify",
+    "build": "npm run build:staff && npm run build:students"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "tailwindcss": "^4.1.11"
   }
