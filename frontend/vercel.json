@@ -1,24 +1,24 @@
 {
   "version": 2,
   "builds": [
-    { "src": "frontend/**", "use": "@vercel/static" }
+    { "src": "**/*", "use": "@vercel/static" }
   ],
   "routes": [
     {
       "src": "/",
-      "dest": "/frontend/staff/pages/login.html"
+      "dest": "/staff/pages/login.html"
     },
     {
       "src": "/staff/pages/(.*)",
-      "dest": "/frontend/staff/pages/$1"
+      "dest": "/staff/pages/$1"
     },
     {
       "src": "/student/pages/(.*)",
-      "dest": "/frontend/student/pages/$1"
+      "dest": "/student/pages/$1"
     },
     {
       "src": "/(.*\\.(?:js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/frontend/$1"
+      "dest": "/$1"
     }
   ]
 }
