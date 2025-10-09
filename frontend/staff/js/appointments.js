@@ -92,6 +92,11 @@ function initializeFilters() {
         searchFilter.value = '';
         applyFilters();
     });
+
+    // Set initial filter if it's pre-selected in HTML
+    if (statusFilter.value) {
+        applyFilters();
+    }
 }
 
 function debounce(func, wait) {

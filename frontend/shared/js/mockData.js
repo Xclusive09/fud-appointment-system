@@ -1,8 +1,23 @@
 // Shared mock data for appointments across student and staff portals
 
-// Global appointments storage
-let globalAppointments = [
-    // Past appointments
+// Function to save appointments to localStorage
+function saveAppointmentsToStorage() {
+    localStorage.setItem('globalAppointments', JSON.stringify(globalAppointments));
+}
+
+// Function to load appointments from localStorage or use initial data
+function loadAppointments() {
+    const storedAppointments = localStorage.getItem('globalAppointments');
+    if (storedAppointments) {
+        return JSON.parse(storedAppointments);
+    }
+    // If nothing in storage, return the initial mock data
+    return getInitialMockData();
+}
+
+// Function to provide the initial set of mock data
+function getInitialMockData() {
+    return [
     {
         id: 101,
         studentName: "Quadri Ilufoye",
@@ -20,7 +35,7 @@ let globalAppointments = [
         studentName: "Divine Favour",
         email: "dev.fav@fud.edu",
         phone: "+1234567802",
-        date: "2025-10-23",
+        date: "2025-10-09",
         time: "10:30",
         status: "Confirmed",
         reason: "Follow-up consultation",
@@ -186,11 +201,20 @@ let globalAppointments = [
         symptoms: "General health concerns",
         appointmentType: "General Consultation"
     }
-];
+    ];
+}
+
+// Global appointments storage, loaded from localStorage
+let globalAppointments = loadAppointments();
+
+// If localStorage was empty, save the initial data.
+if (!localStorage.getItem('globalAppointments')) {
+    saveAppointmentsToStorage();
+}
 
 // Function to get all appointments
 function getAllAppointments() {
-    return [...globalAppointments];
+    return [...globalAppointments]; // Return a copy to prevent direct mutation
 }
 
 // Function to get appointments for a specific date
@@ -212,6 +236,7 @@ function addAppointment(appointmentData) {
     };
 
     globalAppointments.push(newAppointment);
+    saveAppointmentsToStorage(); // Save to localStorage
     return newAppointment;
 }
 
@@ -220,6 +245,7 @@ function updateAppointmentStatus(appointmentId, newStatus) {
     const appointmentIndex = globalAppointments.findIndex(apt => apt.id === appointmentId);
     if (appointmentIndex !== -1) {
         globalAppointments[appointmentIndex].status = newStatus;
+        saveAppointmentsToStorage(); // Save to localStorage
         return globalAppointments[appointmentIndex];
     }
     return null;
