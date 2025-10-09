@@ -13,12 +13,20 @@
       "dest": "/staff/pages/$1"
     },
     {
+      "src": "/staff/(.*\\.(?:js|css|png|jpg|svg|ico))",
+      "dest": "/staff/$1"
+    },
+    {
       "src": "/student/pages/(.*)",
       "dest": "/student/pages/$1"
     },
     {
-      "src": "/(.*\\.(?:js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/$1"
+      "src": "/student/(.*\\.(?:js|css|png|jpg|svg|ico))",
+      "dest": "/student/$1"
+    },
+    {
+      "src": "/shared/(.*)",
+      "dest": "/shared/$1"
     }
   ]
 }
