@@ -45,61 +45,45 @@ function getUserEmail() {
     return localStorage.getItem('userEmail') || '';
 }
 
-// Clear all user data and cache
+// Clear user-specific session data from localStorage
 function clearUserData() {
     // Clear authentication data
     localStorage.removeItem('userToken');
     localStorage.removeItem('userRole');
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
-
-    // Clear profile data
-    localStorage.removeItem('studentProfile');
-    localStorage.removeItem('staffProfile');
-
-    // Clear appointment data
-    localStorage.removeItem('studentAppointments');
-    localStorage.removeItem('staffAppointments');
-
-    // Clear any other session data
     localStorage.removeItem('rememberLogin');
-    sessionStorage.clear();
-
-    // Clear browser cache (if possible)
-    if ('caches' in window) {
-        caches.keys().then(function(names) {
-            for (let name of names) {
-                caches.delete(name);
-            }
-        });
-    }
 }
 
-// Logout user with complete cache clearing
+// Logout user by clearing session data and redirecting
 function logoutUser() {
-    clearUserData();
+  clearUserData();
 
-    // Force page reload to clear any cached data
-    window.location.replace(window.location.pathname.includes('staff') ?
-        '../../staff/pages/login.html' :
-        '../../student/pages/login.html'
-    );
+  // Check if running on a local server (like Live Server)
+  const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+
+  if (isLocal) {
+    window.location.href = '../frontend/staff/pages/login.html';
+  } else {
+    window.location.href = '/'; // For deployed environments like Vercel
+  }
 }
 
 // Initialize logout functionality for any page
 function initializeLogout() {
-    // Find all logout links and buttons
-    const logoutElements = document.querySelectorAll('a[href*="login.html"], button[data-action="logout"]');
-
-    logoutElements.forEach(element => {
-        element.addEventListener('click', function(e) {
+    // This listener now ONLY targets elements with data-action="logout".
+    document.body.addEventListener('click', function(e) {
+        // Use .closest() to handle clicks on child elements inside the button
+        const logoutButton = e.target.closest('[data-action="logout"]');
+        
+        if (logoutButton) {
             e.preventDefault();
 
             // Show confirmation dialog
-            if (confirm('Are you sure you want to logout?')) {
+            if (confirm('Are you sure you want to log out?')) {
                 logoutUser();
             }
-        });
+        }
     });
 }
 
@@ -107,7 +91,7 @@ function initializeLogout() {
 function showLoading(element) {
     element.innerHTML = `
     <div class="flex items-center justify-center py-8">
-      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-500"></div>
       <span class="ml-2 text-gray-600">Loading...</span>
     </div>
   `;
