@@ -63,9 +63,9 @@ function logoutUser() {
   const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
 
   if (isLocal) {
-    window.location.href = '../frontend/staff/pages/login.html';
+    window.location.href = '/frontend/staff/pages/login.html';
   } else {
-    window.location.href = '/'; // For deployed environments like Vercel
+       window.location.href = '/staff/pages/login.html';
   }
 }
 
