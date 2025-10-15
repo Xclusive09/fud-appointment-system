@@ -1,5 +1,69 @@
 // Shared mock data for appointments across student and staff portals
 
+// Today's appointments (October 15, 2025)
+const todayAppointments = [
+    {
+        id: 501,
+        studentName: "Ibrahim Suleiman",
+        email: "ibrahim.s@fud.edu.ng",
+        phone: "+2347012345678",
+        date: "2025-10-15",
+        time: "09:00",
+        status: "Confirmed",
+        reason: "General Checkup",
+        symptoms: "Regular health screening",
+        appointmentType: "General Consultation"
+    },
+    {
+        id: 502,
+        studentName: "Aisha Mohammed",
+        email: "aisha.m@fud.edu.ng",
+        phone: "+2347023456789",
+        date: "2025-10-15",
+        time: "10:30",
+        status: "Confirmed",
+        reason: "Vaccination",
+        symptoms: "Scheduled vaccination",
+        appointmentType: "Vaccination"
+    },
+    {
+        id: 503,
+        studentName: "Hassan Umar",
+        email: "hassan.u@fud.edu.ng",
+        phone: "+2347034567890",
+        date: "2025-10-15",
+        time: "11:30",
+        status: "Completed",
+        reason: "Follow-up",
+        symptoms: "Follow-up consultation",
+        appointmentType: "Follow-up"
+    },
+    {
+        id: 504,
+        studentName: "Fatima Yusuf",
+        email: "fatima.y@fud.edu.ng",
+        phone: "+2347045678901",
+        date: "2025-10-15",
+        time: "14:00",
+        status: "Confirmed",
+        reason: "Medical Certificate",
+        symptoms: "Sports clearance certificate needed",
+        appointmentType: "Medical Certificate"
+    },
+    {
+        id: 505,
+        studentName: "Abdullahi Musa",
+        email: "abdullahi.m@fud.edu.ng",
+        phone: "+2347056789012",
+        date: "2025-10-15",
+        time: "15:30",
+        status: "Confirmed",
+        reason: "Health Screening",
+        symptoms: "Annual medical examination",
+        appointmentType: "Health Screening"
+    }
+];
+
 // Function to save appointments to localStorage
 function saveAppointmentsToStorage() {
     localStorage.setItem('globalAppointments', JSON.stringify(globalAppointments));
@@ -205,12 +269,17 @@ function getInitialMockData() {
 }
 
 // Global appointments storage, loaded from localStorage
-let globalAppointments = loadAppointments();
+let globalAppointments = [];
 
-// If localStorage was empty, save the initial data.
-if (!localStorage.getItem('globalAppointments')) {
+// Initialize appointments by combining today's appointments with stored ones
+function initializeAppointments() {
+    const storedAppointments = loadAppointments();
+    globalAppointments = [...todayAppointments, ...storedAppointments];
     saveAppointmentsToStorage();
 }
+
+// Initialize on load
+initializeAppointments();
 
 // Function to get all appointments
 function getAllAppointments() {
@@ -219,7 +288,11 @@ function getAllAppointments() {
 
 // Function to get appointments for a specific date
 function getAppointmentsByDate(date) {
-    return globalAppointments.filter(apt => apt.date === date);
+    console.log('Getting appointments for date:', date);
+    console.log('All appointments:', globalAppointments);
+    const appointments = globalAppointments.filter(apt => apt.date === date);
+    console.log('Filtered appointments:', appointments);
+    return appointments;
 }
 
 // Function to get appointments for a specific student

@@ -61,11 +61,22 @@ function logoutUser() {
 
   // Check if running on a local server (like Live Server)
   const isLocal = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+  const isStudentSection = window.location.pathname.includes('/student/');
 
-  if (isLocal) {
-    window.location.href = '/frontend/staff/pages/login.html';
+  if (isStudentSection) {
+    // Redirect to student login
+    if (isLocal) {
+      window.location.href = '/frontend/student/pages/login.html';
+    } else {
+      window.location.href = '/student/pages/login.html';
+    }
   } else {
-       window.location.href = '/staff/pages/login.html';
+    // Default redirect to staff login
+    if (isLocal) {
+      window.location.href = '/frontend/staff/pages/login.html';
+    } else {
+      window.location.href = '/staff/pages/login.html';
+    }
   }
 }
 
